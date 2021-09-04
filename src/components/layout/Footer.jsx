@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const FootEr = styled.footer`
+const Bottom = styled.footer`
   color: var(--color-grey);
   font-weight: 400;
   margin: 80px;
@@ -20,12 +20,12 @@ const FootEr = styled.footer`
 
 const Footer = () => {
   return (
-    <FootEr>
+    <Bottom>
       <p>
         &#169; 2021 Strahinja - Sudoku-game. Source code on{' '}
         <a href="https://github.com/StrahinjaRistic/sudoku">Github</a>
       </p>
-    </FootEr>
+    </Bottom>
   );
 };
 
