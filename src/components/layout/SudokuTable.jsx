@@ -3,7 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Game = styled.section`
-  width: 70%;
+  width: 100%;
 `;
 
 const GameTable = styled.table`
@@ -21,7 +21,7 @@ const TableRow = styled.tr`
 `;
 const TableCell = styled.td`
   border: 1px solid var(--color-grey-lighter);
-  padding: 22px 23px;
+  padding: 20px 18px;
   color: var(--background-color);
   cursor: pointer;
   &:nth-child(3n) {
