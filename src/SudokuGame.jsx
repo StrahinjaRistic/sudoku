@@ -18,6 +18,10 @@ const GameContainer = styled.div`
   color: var(--color-grey);
   flex-wrap: wrap;
   padding: 0 20px;
+  @media screen and (max-width: 670px) {
+    max-width: 500px;
+    margin: 0 auto;
+  }
 `;
 
 const SudokuGame = () => {

@@ -3,7 +3,12 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Game = styled.section`
-  width: 100%;
+  width: 70%;
+  @media screen and (max-width: 670px) {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+  }
 `;
 
 const GameTable = styled.table`
@@ -12,6 +17,9 @@ const GameTable = styled.table`
   margin: 30px 0;
   border: 2px solid var(--color-grey);
   border-collapse: collapse;
+  @media screen and (max-width: 670px) {
+    width: 100%;
+  }
 `;
 
 const TableRow = styled.tr`
@@ -21,11 +29,26 @@ const TableRow = styled.tr`
 `;
 const TableCell = styled.td`
   border: 1px solid var(--color-grey-lighter);
-  padding: 20px 18px;
+  padding: 22px 22px;
   color: var(--background-color);
   cursor: pointer;
   &:nth-child(3n) {
     border-right: 2px solid var(--color-grey);
+  }
+  @media screen and (max-width: 670px) {
+    text-align: center;
+  }
+  @media screen and (max-width: 500px) {
+    font-size: 18px;
+    padding: 16px 10px;
+  }
+  @media screen and (max-width: 350px) {
+    font-size: 16px;
+    padding: 4px 0;
+  }
+  @media screen and (max-width: 300px) {
+    font-size: 14px;
+    padding: 2px 0;
   }
 `;
 
