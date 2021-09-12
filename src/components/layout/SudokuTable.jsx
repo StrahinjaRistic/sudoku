@@ -31,7 +31,7 @@ const TableRow = styled.tr`
 const TableCell = styled.td`
   border: 1px solid var(--color-grey-lighter);
   padding: 12px 16px;
-  color: ${(props) => props.filled && 'white'};
+  color: ${(props) => (props.filled ? 'white' : 'black')};
   cursor: pointer;
   &:nth-child(3n) {
     border-right: 2px solid var(--color-grey);
@@ -67,11 +67,11 @@ const SudokuTable = () => {
                 {rows.map((column) => {
                   const indexOfArray = row * 9 + column;
                   const value = puzzle[indexOfArray];
-                  if (value === '0') {
-                    return <TableCell filled>{value}</TableCell>;
-                  } else {
-                    return <TableCell>{value}</TableCell>;
-                  }
+                  return (
+                    <TableCell filled={value === '0' && true}>
+                      {value}
+                    </TableCell>
+                  );
                 })}
               </TableRow>
             );
