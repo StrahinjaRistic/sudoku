@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import GameContext from 'context/game-context';
 
 import styled from 'styled-components';
 
@@ -29,8 +30,8 @@ const TableRow = styled.tr`
 `;
 const TableCell = styled.td`
   border: 1px solid var(--color-grey-lighter);
-  padding: 22px 22px;
-  color: var(--background-color);
+  padding: 12px 16px;
+  color: ${(props) => props.filled && 'white'};
   cursor: pointer;
   &:nth-child(3n) {
     border-right: 2px solid var(--color-grey);
@@ -54,7 +55,8 @@ const TableCell = styled.td`
 
 const SudokuTable = () => {
   const rows = [0, 1, 2, 3, 4, 5, 6, 7, 8];
-  const gameArray = [];
+  let { puzzle, selectedCell } = useContext(GameContext);
+
   return (
     <Game>
       <GameTable>
@@ -64,8 +66,12 @@ const SudokuTable = () => {
               <TableRow key={row}>
                 {rows.map((column) => {
                   const indexOfArray = row * 9 + column;
-                  const value = gameArray[indexOfArray];
-                  return <TableCell></TableCell>;
+                  const value = puzzle[indexOfArray];
+                  if (value === '0') {
+                    return <TableCell filled>{value}</TableCell>;
+                  } else {
+                    return <TableCell>{value}</TableCell>;
+                  }
                 })}
               </TableRow>
             );

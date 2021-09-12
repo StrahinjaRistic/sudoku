@@ -4,6 +4,8 @@ import Header from 'components/layout/Header';
 import Footer from 'components/layout/Footer';
 import SudokuTable from 'components/layout/SudokuTable';
 
+import GameTimer from 'components/GameTimer';
+
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -31,6 +33,7 @@ const SudokuGame = () => {
       <GameContainer>
         <SudokuTable />
       </GameContainer>
+      <GameTimer />
       <Footer />
     </Container>
   );
