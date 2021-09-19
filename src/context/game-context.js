@@ -1,23 +1,16 @@
 import React, { useState } from 'react';
-import puzzles from 'Puzzels';
+import { getFormattedPuzzle } from 'sudokuBuild/tableBuild';
+
 
 const GameContext = React.createContext({
-  gameWon: false,
-  setGameWon: () => {},
-  puzzle: [],
-  selectedCell: -1,
-  setSelectedCell: () => {},
+  tableState: [],
 });
 
 export const GameContextProvider = (props) => {
-  let [gameWon, setGameWon] = useState(false);
-  let puzzle = Array.from(puzzles[Math.floor(Math.random() * puzzles.length)]);
-  let [selectedCell, setSelectedCell] = useState(-1);
+  let tableState = getFormattedPuzzle();
 
   return (
-    <GameContext.Provider
-      value={{ gameWon, setGameWon, puzzle, selectedCell, setSelectedCell }}
-    >
+    <GameContext.Provider value={{ tableState }}>
       {props.children}
     </GameContext.Provider>
   );
