@@ -1,5 +1,4 @@
-import React, { useState, useEffect,  useContext } from 'react';
-import GameContext from 'context/game-context';
+import React, { useState, useEffect } from 'react';
 
 
 import styled from 'styled-components';
@@ -19,7 +18,8 @@ const Time = styled.div`
 `;
 
 const GameTimer = () => {
-  const { timerOn, time, setTime } = useContext(GameContext);
+  const [time, setTime] = useState(0);
+  const [timerOn, setTimerOn] = useState(true);
 
   useEffect(() => {
     let interval = null;
