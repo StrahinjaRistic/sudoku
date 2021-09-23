@@ -1,12 +1,12 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useState, useEffect,  useContext } from 'react';
 import GameContext from 'context/game-context';
+
 
 import styled from 'styled-components';
 
 const Time = styled.div`
   position: relative;
   top: 70px;
-  left: 10px;
   text-align: center;
   font-family: 'Teko', sans-serif;
   font-size: 30px;
@@ -19,11 +19,7 @@ const Time = styled.div`
 `;
 
 const GameTimer = () => {
-  /* let [currnetTime, setCurrentTime] = useState(moment());
-  let { gameWon, gameStartedTime } = useContext(GameContext); */
-
-  const [time, setTime] = useState(0);
-  const [timerOn, setTimerOn] = useState(true);
+  const { timerOn, time, setTime } = useContext(GameContext);
 
   useEffect(() => {
     let interval = null;

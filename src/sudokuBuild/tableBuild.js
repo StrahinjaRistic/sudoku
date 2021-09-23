@@ -28,7 +28,7 @@ const formatPuzzle = (puzzle) => {
   }
   return formattedPuzzle;
 };
-const stringify = (num1, num2) => {
+export const stringify = (num1, num2) => {
   return num1 + '' + num2;
 };
 
@@ -46,7 +46,7 @@ function createArray(length) {
   if (arguments.length > 1) {
     var args = Array.prototype.slice.call(arguments, 1);
 
-    while (i--) arr[length - 1 - i] = createArray.apply(this, args);
+    while (i--) arr[length - 1 - i] = createArray.apply(arguments, args);
   }
 
   return arr;

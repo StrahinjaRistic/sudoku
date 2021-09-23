@@ -36,7 +36,7 @@ const Header = () => {
   return (
     <Head>
       <h1>SUDOKU</h1>
-      <h2>New Game</h2>
+      {/* <h2>New Game</h2> */}
     </Head>
   );
 };

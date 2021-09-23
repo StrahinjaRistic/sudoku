@@ -1,87 +1,65 @@
 import React from 'react';
 import styled from 'styled-components';
 
+
 const TableCell = styled.td`
-  border: 1px solid var(--color-grey-lighter);
-  padding: 12px 16px;
-  color: ${(props) => (props.filled ? 'white' : 'black')};
-  cursor: pointer;
   &:nth-child(3n) {
-    border-right: 2px solid var(--color-grey);
-    
+    border-right: 3px solid var(--color-grey-lighter);
   }
-  @media screen and (max-width: 670px) {
-    text-align: center;
-  }
-  @media screen and (max-width: 500px) {
-    font-size: 18px;
-    padding: 16px 10px;
-  }
-  @media screen and (max-width: 350px) {
-    font-size: 16px;
-    padding: 4px 0;
-  }
-  @media screen and (max-width: 300px) {
-    font-size: 14px;
-    padding: 2px 0;
-  }
+  height: 2em;
+  width: 2em;
+  border: 1px solid #ccc;
+  text-align: center;
+  outline: none;
 `;
 
 const SquareInput = styled.input`
-  -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
-  -moz-box-sizing: border-box; /* Firefox, other Gecko */
-  box-sizing: border-box; /* Opera/IE 8+ */
-  border: 0.5px solid black;
-  padding: 0;
-  margin: 0;
-  height: 40px;
-  width: 40px;
+  font-size: 2.5em;
+  width: 1em;
+  border: none;
   text-align: center;
-  font-size: 28px;
-  input[type='text']:disabled {
-    background-color: #ededed;
+  outline: none;
+  @media screen and (max-width: 670px) {
+    font-size: 1.5em;
   }
+  background: ${(props) => props.conflict && 'red'};
+  color: ${(props) => props.conflict && 'black'};
 `;
 
-const Square = (props) => {
 
+const Square = (props) => {
   const generateSquareContent = () => {
-    console.log('SQUARE: ', props.editable)
     const disabled = !props.editable;
     const squareValue = props.value === '0' ? '' : props.value;
+  
+      return (
+        <TableCell>
+          <SquareInput
+            type="text"
+            conflict={props.conflict}
+            value={squareValue}
+            disabled={disabled}
+            onChange={squareValueChangeHandler}
+          />
+        </TableCell>
+      );
+}
 
-    /* const style = {};
+const squareValueChangeHandler = (e) => {
+  const newSquareValue = e.target.value;
+  if (isValidInput(newSquareValue)) {
     const rowI = props.rowIndex;
     const colI = props.colIndex;
-    if (rowI > 0 && rowI % 3 === 0) {
-      style['borderTop'] = '2px solid black';
-    }
-    if (colI > 0 && colI % 3 === 0) {
-      style['borderLeft'] = '2px solid black';
-    }
-   // if (this.props.conflict) {
-      if (this.props.editable) {
-        style['background'] = 'red';
-      } else {
-        style['border'] = '1px solid red';
-      }
-//   } */
-  
-  return (
-    <TableCell>
-      <SquareInput
-        type="text"
-        value={squareValue}
-        disabled={disabled}
-        onChange={inputChangeHandler}
-      />
-    </TableCell>
-  );
-}
+    props.onValueChange(rowI, colI, newSquareValue);
+  }
+};
 
-const inputChangeHandler = (e) => {
-  console.log(e.target.value);
+const isValidInput = (value) => {
+  const reg = /^[0-9\b]+$/;
+  return value === '' || (value.length === 1 && reg.test(value));
 }
+  
+
 return generateSquareContent();
 }
 
