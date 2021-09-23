@@ -27,7 +27,7 @@ const SudokuGame = () => {
       <GameContainer>
         <SudokuTable />
       </GameContainer>
-      <GameTimer />
+        <GameTimer />
       <Footer />
     </Container>
   );
