@@ -1,86 +1,94 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import GameContext from 'context/game-context';
-import Square from 'components/Square';
 
-import styled from 'styled-components';
-
-const Game = styled.section`
-  width: 70%;
-  @media screen and (max-width: 670px) {
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-  }
-`;
-
-const GameTable = styled.table`
-  font-family: 'Noto Sans', sans-serif;
-  font-size: 26px;
-  margin: 30px 0;
-  border: 2px solid var(--color-grey);
-  border-collapse: collapse;
-  @media screen and (max-width: 670px) {
-    width: 100%;
-  }
-`;
-
-/* const TableRow = styled.tr`
-  &:nth-child(3n) {
-    border-bottom: 2px solid var(--color-grey);
-  }
-`; */
-
+import Board from 'components/Board';
+import { stringify } from 'sudokuBuild/tableBuild';
 
 
 const SudokuTable = () => {
-  const rows = [0, 1, 2, 3, 4, 5, 6, 7, 8];
-  let { tableState } = useContext(GameContext);
+  const { tableState, setTableState,setConflicts } = useContext(GameContext);
 
-  const generateTable = () => {
-    const table = [];
-    for(let i = 0; i < tableState.length; i++) {
-      let currRow = [];
+  const getDeepArrayCopy = (array) => {
+    return JSON.parse(JSON.stringify(array));
+  };
+
+  const squareValueChangeHandler = (i, j, newValue) => {
+    setTableState((prevState) => {
+      const newTableState = getDeepArrayCopy(prevState);
+      const newEditable = prevState[i][j].editable;
+
+      newTableState[i][j] = {
+        cellValue: newValue,
+        cellId: stringify(i, j),
+        editable: newEditable,
+      };
+      return setTableState(newTableState);
+    });
+  };
+
+  const verifyClickHandler = () => {
+    const rows = {};
+    const columns = {};
+    const boxes = {};
+
+    for (let i = 0; i < tableState.length; i++) {
+      rows[i] = getDeepArrayCopy(tableState[i]);
       for (let j = 0; j < tableState[i].length; j++) {
-        let currSquare = (
-          <Square
-            key={'' + i + j}
-            value={tableState[i][j].cellValue}
-            editable={tableState[i][j].editable}
-            rowIndex={i}
-            colIndex={j}
-          />
-        );
-        currRow.push(currSquare);
+        if (columns.hasOwnProperty(j)) {
+          columns[j].push(tableState[i][j]);
+        } else {
+          columns[j] = [tableState[i][j]];
+        }
+        const boxId = stringify(Math.floor(i / 3), Math.floor(j / 3));
+        if (boxes.hasOwnProperty(boxId)) {
+          boxes[boxId].push(tableState[i][j]);
+        } else {
+          boxes[boxId] = [tableState[i][j]];
+        }
       }
-      table.push(<tr key={i}>{currRow}</tr>);
     }
-    return table;
-  }
+    const conflictRows = conflictArray(getConflicts(Object.values(rows)));
+    const conflictColumns = conflictArray(getConflicts(Object.values(columns)));
+    const conflictBoxes = conflictArray(getConflicts(Object.values(boxes)));
+    
+    const mergedConflicts = [
+      ...conflictRows,
+      ...conflictColumns,
+      ...conflictBoxes,
+    ];
+     setConflicts(mergedConflicts);
+  }; 
 
-  
+  const conflictArray = (conflictArrayValue) => {
+    return Array.isArray(conflictArrayValue)
+      ? [].concat(...conflictArrayValue.map(conflictArray))
+      : conflictArrayValue;
+  };
+
+  const getConflicts = (arrs) => {
+    return arrs.map((arr) => boardConflicts(arr));
+  };
+
+  const boardConflicts = (arr) => {
+    const conflictMap = {};
+    for (let i = 0; i < arr.length; i++) {
+      let currArr = arr[i];
+      if (currArr.cellValue !== '0') {
+        if (conflictMap.hasOwnProperty(currArr.cellValue)) {
+          conflictMap[currArr.cellValue].push(currArr.cellId);
+        } else {
+          conflictMap[currArr.cellValue] = [currArr.cellId];
+        }
+      }
+    }
+    return Object.values(conflictMap).filter((arr) => arr.length > 1);
+  };
   return (
-    <Game>
-      <GameTable>
-        <tbody>
-          {generateTable()}
-          {/*  {rows.map((row) => {
-            return (
-              <TableRow key={row}>
-                {rows.map((column) => {
-                  const indexOfArray = row * 9 + column;
-                  const value = rows[indexOfArray];
-                  return (
-                    <TableCell filled={value === '0' && true}>
-                      {value}
-                    </TableCell>
-                  );
-                })}
-              </TableRow>
-            );
-          })} */}
-        </tbody>
-      </GameTable>
-    </Game>
+    <Board
+      onSquareValueChange={squareValueChangeHandler}
+      onVerifyClick={verifyClickHandler}
+      conflicts={tableState.conflicts}
+    />
   );
 };
 
