@@ -1,5 +1,6 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import GameContext from 'context/game-context';
+import Square from 'components/Square';
 
 import styled from 'styled-components';
 
@@ -23,50 +24,51 @@ const GameTable = styled.table`
   }
 `;
 
-const TableRow = styled.tr`
+/* const TableRow = styled.tr`
   &:nth-child(3n) {
     border-bottom: 2px solid var(--color-grey);
   }
-`;
-const TableCell = styled.td`
-  border: 1px solid var(--color-grey-lighter);
-  padding: 12px 16px;
-  color: ${(props) => (props.filled ? 'white' : 'black')};
-  cursor: pointer;
-  &:nth-child(3n) {
-    border-right: 2px solid var(--color-grey);
-  }
-  @media screen and (max-width: 670px) {
-    text-align: center;
-  }
-  @media screen and (max-width: 500px) {
-    font-size: 18px;
-    padding: 16px 10px;
-  }
-  @media screen and (max-width: 350px) {
-    font-size: 16px;
-    padding: 4px 0;
-  }
-  @media screen and (max-width: 300px) {
-    font-size: 14px;
-    padding: 2px 0;
-  }
-`;
+`; */
+
+
 
 const SudokuTable = () => {
   const rows = [0, 1, 2, 3, 4, 5, 6, 7, 8];
-  let { puzzle, selectedCell } = useContext(GameContext);
+  let { tableState } = useContext(GameContext);
 
+  const generateTable = () => {
+    const table = [];
+    for(let i = 0; i < tableState.length; i++) {
+      let currRow = [];
+      for (let j = 0; j < tableState[i].length; j++) {
+        let currSquare = (
+          <Square
+            key={'' + i + j}
+            value={tableState[i][j].cellValue}
+            editable={tableState[i][j].editable}
+            rowIndex={i}
+            colIndex={j}
+          />
+        );
+        currRow.push(currSquare);
+      }
+      table.push(<tr key={i}>{currRow}</tr>);
+    }
+    return table;
+  }
+
+  
   return (
     <Game>
       <GameTable>
         <tbody>
-          {rows.map((row) => {
+          {generateTable()}
+          {/*  {rows.map((row) => {
             return (
               <TableRow key={row}>
                 {rows.map((column) => {
                   const indexOfArray = row * 9 + column;
-                  const value = puzzle[indexOfArray];
+                  const value = rows[indexOfArray];
                   return (
                     <TableCell filled={value === '0' && true}>
                       {value}
@@ -75,7 +77,7 @@ const SudokuTable = () => {
                 })}
               </TableRow>
             );
-          })}
+          })} */}
         </tbody>
       </GameTable>
     </Game>
