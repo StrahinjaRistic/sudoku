@@ -27,13 +27,12 @@ const Button = styled.button`
   }
 `;
 
-
-const ButtonSudoku = (props) => {
+const ButtonSudoku: React.FC<{ onVerify: () => void }> = (props) => {
   return (
     <ButtonContainer>
       <Button onClick={props.onVerify}>Check Validity</Button>
     </ButtonContainer>
   );
-}
+};
 
 export default ButtonSudoku;

@@ -10,10 +10,8 @@ const getRandomPuzzle = () => {
   return puzzles[Math.floor(Math.random() * puzzles.length)];
 };
 
-
-
-const formatPuzzle = (puzzle) => {
-  const formattedPuzzle = createArray(9, 9);
+const formatPuzzle = (puzzle: string) => {
+  const formattedPuzzle = createArray(9);
   for (let i = 0; i < puzzle.length; i++) {
     const rowId = getRowId(i);
     const colId = getColId(i);
@@ -28,28 +26,26 @@ const formatPuzzle = (puzzle) => {
   }
   return formattedPuzzle;
 };
-export const stringify = (num1, num2) => {
+export const stringify = (num1: number, num2: number) => {
   return num1 + '' + num2;
 };
 
- const getRowId = (i) => {
+const getRowId = (i: number) => {
   return Math.floor(i / 9);
 };
 
- const getColId = (i) => {
+const getColId = (i: number) => {
   return i % 9;
 };
 
-function createArray(length) {
+function createArray(length: number) {
   var arr = new Array(length || 0),
     i = length;
-  if (arguments.length > 1) {
-    var args = Array.prototype.slice.call(arguments, 1);
+  if (arguments.length === 1) {
+    var args: any = Array.prototype.slice.call(arguments, 1);
 
     while (i--) arr[length - 1 - i] = createArray.apply(arguments, args);
   }
 
   return arr;
 }
-
-
