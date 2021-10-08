@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import GameContext from 'context/game-context';
 import Square from 'components/Square';
 import ButtonSudoku from './Button';
@@ -26,10 +26,13 @@ const TableRow = styled.tr`
   }
 `;
 
-const Board = (props) => {
+const Board: React.FC<{
+  onSquareValueChange: (i: number, j: number, newValue: string) => void;
+  onVerifyClick: () => void;
+}> = (props) => {
   let { tableState, conflicts } = useContext(GameContext);
 
-  const squareValueChangeHandler = (i, j, newValue) => {
+  const squareValueChangeHandler = (i: number, j: number, newValue: string) => {
     props.onSquareValueChange(i, j, newValue);
   };
 
@@ -39,7 +42,7 @@ const Board = (props) => {
       let currRow = [];
       for (let j = 0; j < tableState[i].length; j++) {
         const conflict = conflicts.includes(i + '' + j) ? true : false;
-        
+
         let currSquare = (
           <Square
             key={'' + i + j}
@@ -66,7 +69,7 @@ const Board = (props) => {
         </GameTable>
       </Game>
       <ButtonSudoku onVerify={props.onVerifyClick} />
-      </>
+    </>
   );
 };
 

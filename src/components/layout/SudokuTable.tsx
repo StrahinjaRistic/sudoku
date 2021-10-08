@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import GameContext from 'context/game-context';
 
 import Board from 'components/Board';
@@ -9,11 +9,10 @@ import {
   getDeepArrayCopy,
 } from 'sudokuBuild/gameSolver';
 
-
 const SudokuTable = () => {
-  const { tableState, setTableState,setConflicts } = useContext(GameContext);
+  const { tableState, setTableState, setConflicts } = useContext(GameContext);
 
-  const squareValueChangeHandler = (i, j, newValue) => {
+  const squareValueChangeHandler = (i: number, j: number, newValue: string) => {
     setTableState((prevState) => {
       const newTableState = getDeepArrayCopy(prevState);
       const newEditable = prevState[i][j].editable;
@@ -23,14 +22,14 @@ const SudokuTable = () => {
         cellId: stringify(i, j),
         editable: newEditable,
       };
-      return setTableState(newTableState);
+      return newTableState;
     });
   };
 
   const verifyClickHandler = () => {
-    const rows = {};
-    const columns = {};
-    const boxes = {};
+    const rows: any = {};
+    const columns: any = {};
+    const boxes: any = {};
 
     for (let i = 0; i < tableState.length; i++) {
       rows[i] = getDeepArrayCopy(tableState[i]);
@@ -51,20 +50,19 @@ const SudokuTable = () => {
     const conflictRows = conflictArray(getConflicts(Object.values(rows)));
     const conflictColumns = conflictArray(getConflicts(Object.values(columns)));
     const conflictBoxes = conflictArray(getConflicts(Object.values(boxes)));
-    
+
     const mergedConflicts = [
       ...conflictRows,
       ...conflictColumns,
       ...conflictBoxes,
     ];
-     setConflicts(mergedConflicts);
-  }; 
-  
+    setConflicts(mergedConflicts);
+  };
+
   return (
     <Board
       onSquareValueChange={squareValueChangeHandler}
       onVerifyClick={verifyClickHandler}
-      conflicts={tableState.conflicts}
     />
   );
 };

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 
-
 import styled from 'styled-components';
 
 const Time = styled.div`
@@ -18,11 +17,11 @@ const Time = styled.div`
 `;
 
 const GameTimer = () => {
-  const [time, setTime] = useState(0);
-  const [timerOn, setTimerOn] = useState(true);
+  const [time, setTime] = useState<number>(0);
+  const [timerOn, setTimerOn] = useState<boolean>(true);
 
   useEffect(() => {
-    let interval = null;
+    let interval: any = null;
     if (timerOn) {
       interval = setInterval(() => {
         setTime((prevTime) => prevTime + 1000);

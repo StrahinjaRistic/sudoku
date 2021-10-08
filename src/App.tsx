@@ -1,4 +1,3 @@
-import React from 'react';
 import SudokuGame from 'SudokuGame';
 
 import GlobalStyle from 'theme/globalStyles';

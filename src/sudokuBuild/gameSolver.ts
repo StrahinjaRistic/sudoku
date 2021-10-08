@@ -1,19 +1,19 @@
-export const conflictArray = (conflictArrayValue) => {
+export const conflictArray = (conflictArrayValue: any): any => {
   return Array.isArray(conflictArrayValue)
     ? [].concat(...conflictArrayValue.map(conflictArray))
     : conflictArrayValue;
 };
 
-export const getConflicts = (arrs) => {
-  return arrs.map((arr) => boardConflicts(arr));
+export const getConflicts = (arrs: any) => {
+  return arrs.map((arr: any) => boardConflicts(arr));
 };
 
-export const getDeepArrayCopy = (array) => {
+export const getDeepArrayCopy = (array: any) => {
   return JSON.parse(JSON.stringify(array));
 };
 
-const boardConflicts = (arr) => {
-  const conflictMap = {};
+const boardConflicts = (arr: any) => {
+  const conflictMap: any = {};
   for (let i = 0; i < arr.length; i++) {
     let currArr = arr[i];
     if (currArr.cellValue !== '0') {
@@ -24,5 +24,5 @@ const boardConflicts = (arr) => {
       }
     }
   }
-  return Object.values(conflictMap).filter((arr) => arr.length > 1);
+  return Object.values(conflictMap).filter((arr: any) => arr.length > 1);
 };
