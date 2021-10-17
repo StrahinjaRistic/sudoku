@@ -1,65 +1,22 @@
-export type LoginTypes = {
-  userName: {
-    type: string;
-    placeholder: string;
-    value: string;
-    valid: boolean;
-    touched: boolean;
-    message: string;
-    validation: {
-      required: boolean;
-    };
-  };
-  password: {
-    type: string;
-    placeholder: string;
-    value: string;
-    valid: boolean;
-    touched: boolean;
-    message: string;
-    validation: {
-      required: boolean;
-      minLength: number;
-      maxLength: number;
-    };
+interface IField {
+  type: string;
+  placeholder: string;
+  value: string;
+  valid: boolean;
+  touched: boolean;
+  message: string;
+  validation: {
+    [item: string]: boolean | number;
   };
 };
 
+export type LoginTypes = {
+  userName: IField;
+  password: IField;
+};
+
 export type RegistrationTypes = {
-  userName: {
-    type: string;
-    placeholder: string;
-    value: string;
-    valid: boolean;
-    touched: boolean;
-    message: string;
-    validation: {
-      required: boolean;
-    };
-  };
-  password: {
-    type: string;
-    placeholder: string;
-    value: string;
-    valid: boolean;
-    touched: boolean;
-    message: string;
-    validation: {
-      required: boolean;
-      minLength: number;
-      maxLength: number;
-    };
-  };
-  email: {
-    type: string;
-    placeholder: string;
-    value: string;
-    valid: boolean;
-    touched: boolean;
-    message: string;
-    validation: {
-      required: boolean;
-      isMail: boolean;
-    };
-  };
+  userName: IField;
+  password: IField;
+  email: IField;
 };

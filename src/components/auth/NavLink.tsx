@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-const NavLink = styled(Link)`
+const StyledNavLink = styled(Link)`
   &:hover,
   &:active {
     cursor: pointer;
@@ -13,17 +13,13 @@ const NavLink = styled(Link)`
   }
 `;
 
-type Props = {
+interface INavLink {
   to: string;
   children: ReactNode;
 };
 
-const navLink: React.FC<Props> = ({ to, children }) => {
-  return (
-    <>
-      <NavLink to={to}>{children}</NavLink>
-    </>
-  );
+const NavLink: React.FC<INavLink> = (props) => {
+  return <StyledNavLink {...props} />;
 };
 
-export default navLink;
+export default NavLink;

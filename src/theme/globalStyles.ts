@@ -3,10 +3,10 @@ import { createGlobalStyle } from 'styled-components';
 const GlobalStyle = createGlobalStyle`
   body {
     background: var(--background-color);
-  color: var(--color-blue);
-  font-family: 'Source Sans Pro', sans-serif;
-	line-height: 1.4em;
-  font-weight: 300;
+    color: var(--color-blue);
+    font-family: 'Source Sans Pro', sans-serif;
+    line-height: 1.4em;
+    font-weight: 300;
   }
   :root {
   --background-color: #fff;
@@ -38,5 +38,7 @@ export const device = {
   desktop: `(min-width: ${size.desktop})`,
   desktopL: `(min-width: ${size.desktop})`,
 };
+
+// define theme
 
 export default GlobalStyle;

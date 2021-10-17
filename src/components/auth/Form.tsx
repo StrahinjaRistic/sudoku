@@ -76,25 +76,20 @@ type Props = {
   ) => void;
   formName: string;
 };
-const Form: React.FC<Props> = (props) => {
-  const formElementsArray = [];
-  for (let key in props.form) {
-    formElementsArray.push({
-      id: key,
-      config: props.form[key],
-    });
-  }
-  let newForm = (
+const Form: React.FC<Props> = ({ form, ...props}) => {
+
+
+  return(
     <FormWrapper>
       <FormInput>
         <FormStyled onSubmit={props.submit}>
-          {formElementsArray.map((formElement) => (
+          {form.map((formElement) => (
             <Input
-              key={formElement.id}
-              inputName={formElement.id}
-              inputType={formElement.config.type}
-              inputPlaceholder={formElement.config.placeholder}
-              inputValue={formElement.config.value}
+              key={formElement.id} // item.key
+              inputName={formElement.id} // item.key
+              inputType={formElement.config.type} // item[key].type
+              inputPlaceholder={formElement.config.placeholder} // item[key].placefolder
+              inputValue={formElement.config.value} // item[key].value
               isTouched={formElement.config.touched}
               shouldValidate={formElement.config.validation}
               invalid={!formElement.config.valid}
@@ -106,9 +101,9 @@ const Form: React.FC<Props> = (props) => {
           {props.children}
         </FormStyled>
       </FormInput>
+      <SubmitButton onClick={actionButton.onClick}>{actionButton.text}</SubmitButton>
     </FormWrapper>
   );
-  return <>{newForm}</>;
 };
 
 export default Form;

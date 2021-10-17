@@ -8,7 +8,7 @@ const ButtonContainer = styled.div`
   margin: 0 30px;
 `;
 
-const Button = styled.button<{ className?: any }>`
+const Button = styled.button`
   display: inline-block;
   padding: 0.3em 1.2em;
   margin: 0 0.3em 0.3em 0;
@@ -23,24 +23,28 @@ const Button = styled.button<{ className?: any }>`
   &:hover {
     background-color: var(--color-grey-lighter);
   }
-  &.disabled {
+  &.isDisabled {
     cursor: not-allowed;
     opacity: 0.8;
     background-color: var(--color-grey-lighter);
   }
 `;
 
-const ButtonSudoku: React.FC<{ onVerify?: () => void; disabled: boolean }> = (
-  props
+const ButtonSudoku: React.FC<{ onVerify?: () => void; disabled?: boolean }> = (
+  {
+    disabled = false,
+    children,
+    onVerify,
+  }
 ) => {
   return (
     <ButtonContainer>
       <Button
-        className={props.disabled && 'disabled'}
-        disabled={props.disabled}
-        onClick={props.onVerify}
+        className={disabled ? 'isDisabled' : ''}
+        disabled={disabled}
+        onClick={onVerify}
       >
-        {props.children}
+        {children}
       </Button>
     </ButtonContainer>
   );

@@ -8,7 +8,7 @@ const InputDiv = styled.div`
   display: flex;
 `;
 
-const InputElement = styled.input<{ className?: any }>`
+const InputElement = styled.input`
   display: block;
   font-family: FontAwesome, 'Roboto', sans-serif;
   outline: 0;
@@ -23,7 +23,7 @@ const InputElement = styled.input<{ className?: any }>`
     border: 1px solid red;
   }
   &:hover {
-    border: ${(props) => (props.className ? '' : '1px solid #17a589')};
+    border: ${({ className }) => (className ? '' : '1px solid #17a589')};
   }
   &.valid {
     border: 1px solid #17a589;
@@ -51,16 +51,20 @@ type Props = {
 };
 
 const Input: React.FC<Props> = (props) => {
+
+  function isInvalid() {
+    return props.isTouched &&
+            props.invalid &&
+            props.shouldValidate;
+  }
   let inputElement = null;
   switch (props.inputType) {
     case 'text':
       inputElement = (
         <InputElement
           className={
-            props.isTouched &&
-            props.invalid &&
-            props.shouldValidate &&
-            'invalid'
+            isInvalid() ?
+            'invalid' : ''
           }
           type={props.inputType}
           placeholder={props.inputPlaceholder}
@@ -78,7 +82,7 @@ const Input: React.FC<Props> = (props) => {
             props.isTouched &&
             props.invalid &&
             props.shouldValidate &&
-            'invalid'
+            'invalid' || ''
           }
           type={props.inputType}
           placeholder={props.inputPlaceholder}
@@ -96,7 +100,7 @@ const Input: React.FC<Props> = (props) => {
             props.isTouched &&
             props.invalid &&
             props.shouldValidate &&
-            'invalid'
+            'invalid' || ''
           }
           type={props.inputType}
           placeholder={props.inputPlaceholder}

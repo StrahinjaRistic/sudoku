@@ -68,7 +68,7 @@ const Board: React.FC<{
           <tbody>{generateBoard()}</tbody>
         </GameTable>
       </Game>
-      <ButtonSudoku onVerify={props.onVerifyClick} disabled={false}>
+      <ButtonSudoku onVerify={props.onVerifyClick}>
         Check Validity
       </ButtonSudoku>
     </>
