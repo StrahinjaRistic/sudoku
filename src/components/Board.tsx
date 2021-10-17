@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import GameContext from 'context/game-context';
 import Square from 'components/Square';
-import ButtonSudoku from './Button';
+import ButtonSudoku from 'components/UI/Button';
 
 import styled from 'styled-components';
 
@@ -68,7 +68,9 @@ const Board: React.FC<{
           <tbody>{generateBoard()}</tbody>
         </GameTable>
       </Game>
-      <ButtonSudoku onVerify={props.onVerifyClick} />
+      <ButtonSudoku onVerify={props.onVerifyClick} disabled={false}>
+        Check Validity
+      </ButtonSudoku>
     </>
   );
 };

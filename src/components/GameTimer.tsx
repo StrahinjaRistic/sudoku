@@ -18,10 +18,11 @@ const Time = styled.div`
 
 const GameTimer = () => {
   const [time, setTime] = useState<number>(0);
-  const [timerOn, setTimerOn] = useState<boolean>(true);
+  const [timerOn, setTimerOn] = useState<boolean>(false);
 
   useEffect(() => {
     let interval: any = null;
+
     if (timerOn) {
       interval = setInterval(() => {
         setTime((prevTime) => prevTime + 1000);

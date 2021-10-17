@@ -1,3 +1,6 @@
+import { useContext } from 'react';
+import { Link } from 'react-router-dom';
+import GameContext from 'context/game-context';
 import styled from 'styled-components';
 
 const Head = styled.header`
@@ -14,27 +17,31 @@ const Head = styled.header`
     -moz-text-rendering: optimizeLegibility;
     text-rendering: optimizeLegibility;
   }
-  h2 {
-    float: right;
-    font-size: 18px;
-    font-weight: 400;
-    line-height: 2;
-    color: var(--color-grey);
-    padding-top: 16px;
-    cursor: pointer;
-  }
   :after {
     content: '';
     display: block;
     clear: both;
   }
 `;
+const NavLink = styled(Link)`
+  float: right;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 2;
+  color: var(--color-grey);
+  padding-top: 30px;
+  text-decoration: none;
+  :hover {
+    cursor: pointer;
+  }
+`;
 
 const Header = () => {
+  const { isAuth } = useContext(GameContext);
   return (
     <Head>
       <h1>SUDOKU</h1>
-      {/* <h2>New Game</h2> */}
+      {isAuth && <NavLink to="/logout">LOGOUT</NavLink>}
     </Head>
   );
 };
