@@ -1,12 +1,15 @@
-import SudokuGame from 'SudokuGame';
-
+import Layout from 'components/layout/Layout';
 import GlobalStyle from 'theme/globalStyles';
+
+import RouterAll from 'allRoutes/Router';
 
 const App = () => {
   return (
     <>
       <GlobalStyle />
-      <SudokuGame />
+      <Layout>
+        <RouterAll />
+      </Layout>
     </>
   );
 };

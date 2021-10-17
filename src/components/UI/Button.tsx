@@ -1,5 +1,3 @@
-import React from 'react';
-
 import styled from 'styled-components';
 
 const ButtonContainer = styled.div`
@@ -10,7 +8,7 @@ const ButtonContainer = styled.div`
   margin: 0 30px;
 `;
 
-const Button = styled.button`
+const Button = styled.button<{ className?: any }>`
   display: inline-block;
   padding: 0.3em 1.2em;
   margin: 0 0.3em 0.3em 0;
@@ -25,12 +23,25 @@ const Button = styled.button`
   &:hover {
     background-color: var(--color-grey-lighter);
   }
+  &.disabled {
+    cursor: not-allowed;
+    opacity: 0.8;
+    background-color: var(--color-grey-lighter);
+  }
 `;
 
-const ButtonSudoku: React.FC<{ onVerify: () => void }> = (props) => {
+const ButtonSudoku: React.FC<{ onVerify?: () => void; disabled: boolean }> = (
+  props
+) => {
   return (
     <ButtonContainer>
-      <Button onClick={props.onVerify}>Check Validity</Button>
+      <Button
+        className={props.disabled && 'disabled'}
+        disabled={props.disabled}
+        onClick={props.onVerify}
+      >
+        {props.children}
+      </Button>
     </ButtonContainer>
   );
 };

@@ -12,6 +12,8 @@ type GameContextProps = {
   setTableState: React.Dispatch<React.SetStateAction<any[]>>;
   conflicts: string[];
   setConflicts: React.Dispatch<React.SetStateAction<string[]>>;
+  isAuth: boolean;
+  setIsAuth: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const GameContext = React.createContext<GameContextProps>({
@@ -19,11 +21,14 @@ const GameContext = React.createContext<GameContextProps>({
   setTableState: () => {},
   conflicts: [],
   setConflicts: () => {},
+  isAuth: false,
+  setIsAuth: () => {},
 });
 
 export const GameContextProvider: React.FC = (props) => {
   let [tableState, setTableState] = useState(getFormattedPuzzle());
   let [conflicts, setConflicts] = useState<string[]>([]);
+  let [isAuth, setIsAuth] = useState<boolean>(false);
 
   return (
     <GameContext.Provider
@@ -32,6 +37,8 @@ export const GameContextProvider: React.FC = (props) => {
         setTableState,
         conflicts,
         setConflicts,
+        isAuth,
+        setIsAuth,
       }}
     >
       {props.children}

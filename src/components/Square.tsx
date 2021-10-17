@@ -12,7 +12,7 @@ const TableCell = styled.td`
   outline: none;
 `;
 
-const SquareInput = styled.input`
+const SquareInput = styled.input<{ conflicts: boolean }>`
   font-size: 2.5em;
   width: 1em;
   border: none;
@@ -21,13 +21,9 @@ const SquareInput = styled.input`
   @media screen and (max-width: 670px) {
     font-size: 1.5em;
   }
-  background: ${(props: StyledProps) => props.conflicts && 'red'};
-  color: ${(props: StyledProps) => props.conflicts && 'black'};
+  background: ${(props) => props.conflicts && 'red'};
+  color: ${(props) => props.conflicts && 'black'};
 `;
-
-interface StyledProps {
-  conflicts: boolean;
-}
 
 const Square: React.FC<{
   editable: boolean;
